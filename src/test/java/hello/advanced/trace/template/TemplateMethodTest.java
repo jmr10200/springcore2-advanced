@@ -49,5 +49,33 @@ public class TemplateMethodTest {
 
         AbstractTemplate template2 = new SubClassLogic2();
         template2.execute();
+        // 단점
+        // SubClassLogic1, SubClassLogic2 처럼 클래스를 계속 생성해야 함
+    }
+
+    /**
+     * 템플릿 메소드 패턴 적용 : 익명 내부 클래스 사용
+     */
+    @Test
+    void templateMethodV2() {
+        AbstractTemplate template1 = new AbstractTemplate() {
+            @Override
+            protected void call() {
+                log.info("비즈니스 로직1 실행");
+            }
+        };
+        log.info("클래스 이름1={}", template1.getClass());
+        template1.execute();
+
+        AbstractTemplate template2 = new AbstractTemplate() {
+            @Override
+            protected void call() {
+                log.info("비즈니스 로직2 실행");
+            }
+        };
+        log.info("클래스 이름2={}", template2.getClass());
+        template2.execute();
+        // 로그를통해 익명 내부 클래스 이름이 아래와 같이 생성되는 것을 확인할 수 있다.
+        // TemplateMethodTest$1 , TemplateMethodTest$2
     }
 }
